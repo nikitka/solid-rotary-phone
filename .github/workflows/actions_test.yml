@@ -1,0 +1,20 @@
+name: actions expressions test
+on:
+  workflow_dispatch:
+    inputs:
+      sanitizer:
+        required: false
+        type: string
+      runner_label:
+        required: true
+        type: string
+
+jobs:
+  main:
+    environment:
+        log_suffix: ${{ inputs.sanitizer != '' && format('{0}-{1}', inputs.runner_label, inputs.sanitizer) || inputs.runner_label }}
+        log_suffix2: ${{ inputs.sanitizer != '' && format('{0}-{1}', 'x86_64', inputs.sanitizer) || inputs.runner_label }}
+    steps:
+      - name: print env
+        shell: bash
+        run: env
