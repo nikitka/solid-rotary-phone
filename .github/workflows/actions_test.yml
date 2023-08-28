@@ -11,10 +11,11 @@ on:
 
 jobs:
   main:
-    environment:
-        log_suffix: ${{ inputs.sanitizer != '' && format('{0}-{1}', inputs.runner_label, inputs.sanitizer) || inputs.runner_label }}
-        log_suffix2: ${{ inputs.sanitizer != '' && format('{0}-{1}', 'x86_64', inputs.sanitizer) || inputs.runner_label }}
+    runs-on: ubuntu-latest
     steps:
       - name: print env
+        env:
+            log_suffix: ${{ inputs.sanitizer != '' && format('{0}-{1}', inputs.runner_label, inputs.sanitizer) || inputs.runner_label }}
+            log_suffix2: ${{ inputs.sanitizer != '' && format('{0}-{1}', 'x86_64', inputs.sanitizer) || inputs.runner_label }}
         shell: bash
         run: env
